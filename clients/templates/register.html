@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+</head>
+<body>
+	<h3>Register Form</h3>
+	 	{% if registered %}
+        <strong>thank you for registering!</strong>
+        <a href="/">Return to the homepage.</a><br />
+		{% else %}
+			<div id="form_register">
+				<form id="user_form" method="post" action="" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ user_form.as_p }}
+					<input type="submit" value="Create new user">
+				</form>
+			</div>
+		{% endif %}
+</body>
+</html>
