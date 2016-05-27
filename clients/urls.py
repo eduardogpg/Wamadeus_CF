@@ -5,5 +5,6 @@ app_name = 'client'
 
 urlpatterns = [
     url(r'^/create$', views.register, name="register"),
-    url(r'^/login$', views.login_user, name="login"),
+    url(r'^/login$', views.login, name="login"),
+    url(r'^/logout$', views.logout, name="logout"),
 ]

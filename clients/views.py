@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from forms import UserForm, LoginForm
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as login_django
+from django.contrib.auth import logout as logout_django
 
 # Create your views here.
 #Tutorial to register new User
@@ -14,13 +16,17 @@ def home(request):
 def dashboard(request):
 	return render(request, 'dashboard.html', {})	
 
-def login_user(request):
+def logout(request):
+	logout_django(request)
+	return redirect('home')
+
+def login(request):
 	message = None
 	if request.method == 'POST':
 		user = authenticate(username = request.POST['username'], password= request.POST['password'])
 		if user is not None:
 			if user.is_active:
-				login(request, user)
+				login_django(request, user)
 				return redirect('dashboard')
 			else:
 				message = "The password id valid, but the account has been disbled"
@@ -40,7 +46,6 @@ def register(request):
 			user.set_password(user.password)
 			user.save()
 			registered = True
-			print "new user register"
 		else:
 			print user_form.errors
 	else:
