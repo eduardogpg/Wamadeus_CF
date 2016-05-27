@@ -7,7 +7,7 @@
 	<h3>Register Form</h3>
 	 	{% if registered %}
         <strong>thank you for registering!</strong>
-        <a href="/">Return to the homepage.</a><br />
+        <a href="{% url 'client:login' %}">Return to the homepage.</a><br />
 		{% else %}
 			<div id="form_register">
 				<form id="user_form" method="post" action="" enctype="multipart/form-data">
