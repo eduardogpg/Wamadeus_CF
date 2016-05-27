@@ -6,6 +6,11 @@ from forms import UserForm, LoginForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth import logout as logout_django
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+
+def user_is_not_login(user):
+    return not user.is_authenticated()
 
 # Create your views here.
 #Tutorial to register new User
@@ -13,13 +18,15 @@ from django.contrib.auth import logout as logout_django
 def home(request):
 	return render(request, 'home.html', {})
 
+@login_required(login_url='home')
 def dashboard(request):
-	return render(request, 'dashboard.html', {})	
+	return render(request, 'dashboard.html', {'user': request.user})	
 
 def logout(request):
 	logout_django(request)
 	return redirect('home')
 
+@user_passes_test(user_is_not_login, login_url='dashboard')
 def login(request):
 	message = None
 	if request.method == 'POST':
