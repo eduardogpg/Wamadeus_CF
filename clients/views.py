@@ -9,22 +9,28 @@ from django.contrib.auth import logout as logout_django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-def user_is_not_login(user):
-    return not user.is_authenticated()
-
 # Create your views here.
 #Tutorial to register new User
 #http://www.tangowithdjango.com/book/chapters/login.html
-def home(request):
-	return render(request, 'home.html', {})
 
-@login_required(login_url='home')
-def dashboard(request):
-	return render(request, 'dashboard.html', {'user': request.user})	
+def register(request):
+	registered = False
+	if request.method == 'POST':
+		user_form = UserForm(request.POST)
+		if user_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save()
+			registered = True
+		else:
+			print user_form.errors
+	else:
+		user_form = UserForm()
+	context = {'user_form' : user_form, 'registered' : registered}
+	return render(request, 'register.html', context )
 
-def logout(request):
-	logout_django(request)
-	return redirect('home')
+def user_is_not_login(user):
+    return not user.is_authenticated()
 
 @user_passes_test(user_is_not_login, login_url='dashboard')
 def login(request):
@@ -44,19 +50,11 @@ def login(request):
 	context = { 'login_form' : login_form, 'message' : message }
 	return render(request, 'login.html',  context ) 
 
-def register(request):
-	registered = False
-	if request.method == 'POST':
-		user_form = UserForm(request.POST)
-		if user_form.is_valid():
-			user = user_form.save()
-			user.set_password(user.password)
-			user.save()
-			registered = True
-		else:
-			print user_form.errors
-	else:
-		user_form = UserForm()
+def logout(request):
+	logout_django(request)
+	return redirect('home')
 
-	context = {'user_form' : user_form, 'registered' : registered}
-	return render(request, 'register.html', context )
+
+
+
+
