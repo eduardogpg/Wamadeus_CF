@@ -77,6 +77,13 @@ def delete(request):
 	user.delete()
 	return redirect('home')
 
+@login_required(login_url='home')
+def down(request):
+	user = request.user
+	user.is_active = False
+	user.save()
+	return redirect('client:logout')
+
 def logout(request):
 	logout_django(request)
 	return redirect('home')

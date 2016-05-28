@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^logout$', views.logout, name="logout"),
     url(r'^settings$', views.settings, name="settings"),
     url(r'^delete$', views.delete, name="delete"),
+    url(r'^down$', views.down, name="down"),
 ]

@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^$', views.home, name="home"),
 	url(r'^dashboard/$', views.dashboard, name="dashboard"),
     url(r'^admin/', admin.site.urls),
-    url(r'user/', include('clients.urls')  )
+    url(r'user/', include('clients.urls')  ),
+    url(r'project/', include('projects.urls')  ),
 ]
 
