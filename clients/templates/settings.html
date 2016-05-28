@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Settings</title>
+</head>
+<body>
+	<h3>Wamadeus Settings</h3>
+
+		<p> {{  request.user.username  }} </p>
+
+		<a href="{% url 'home' %}">Home</a>
+		<a href="{% url  'client:delete'%}">Delete profile</a>
+		<a href="#">Down profile</a>
+
+
+      {% if updated %}
+      	<strong>Profile updated!</strong>
+			{% endif %}
+
+      <div id="form_edit_user">
+				<form id="edit_user_form" method="post" action="" enctype="multipart/form-data">
+					{% csrf_token %}
+					
+					{{ user_form.as_p }}
+					{{ client_form.as_p }}
+					
+					<input type="submit" value="Update User">
+				</form>
+			</div>
+
+				
+</body>
+</html>
