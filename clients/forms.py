@@ -20,7 +20,6 @@ class UseEditForm(UserChangeForm):
 		model= User
 		fields = ('username','first_name', 'last_name')
 
-
 class ClientForm(forms.ModelForm):
 	class Meta:
 		model = Client

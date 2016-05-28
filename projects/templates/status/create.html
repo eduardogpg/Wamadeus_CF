@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Status</title>
+</head>
+<body>
+
+		<h3>Wamadeus Create Status</h3>
+		{% if created %}
+			<p>   <strong> Estatus creado </strong> </p>
+		{% else %}
+			<form method="POST" action="">
+				{% csrf_token %}
+				{{ status_form.as_p }}
+				<input type="submit" value="create">
+			</form>
+		{% endif %}
+
+</body>
+</html>

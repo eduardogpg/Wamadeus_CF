@@ -4,5 +4,9 @@ from .models import Status, Project
 class ProjectForm(forms.ModelForm):
 	class Meta:
 		model = Project
-		exclude = ['dead_line']
+		exclude = ['create_at', 'user']
 		
+class StatusForm(forms.ModelForm):
+	class Meta:
+		model = Status
+		fields = '__all__'

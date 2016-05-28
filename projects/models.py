@@ -18,7 +18,7 @@ class Project(models.Model):
 	alias = models.CharField(max_length=10)
 	description = models.TextField(max_length= 200)
 	status = models.OneToOneField( Status )
-	reporter = models.ForeignKey(User)
+	user = models.ForeignKey(User)
 	create_at = models.DateField( default = datetime.now )
 	dead_line = models.DateField()
 

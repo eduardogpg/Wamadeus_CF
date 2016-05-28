@@ -5,5 +5,33 @@
 </head>
 <body>
 		<h3>Wamadeus Create Project</h3>
+
+		{% if created %}
+			<p> Your projects was successfully created </p>
+		{% else %}
+
+		{% if form_project.errors %}
+		    {% for field in form_project %}
+		        {% for error in field.errors %}
+		            <div class="alert alert-error">
+		                <strong>{{ error|escape }}</strong>
+		            </div>
+		        {% endfor %}
+		    {% endfor %}
+		    {% for error in form_project.non_field_errors %}
+		        <div class="alert alert-error">
+		            <strong>{{ error|escape }}</strong>
+		        </div>
+		    {% endfor %}
+		{% endif %}
+
+
+			<form id="create_project_form" action="" method="post">
+				{% csrf_token %}
+				{{ form_project.as_p }}
+				<input type="submit" value="creat">
+			</form>
+		{% endif %}
+
 </body>
 </html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Show Status</title>
+</head>
+<body>
+	<h3>Wamadeus Show Status</h3>
+	<p> Name :  {{ status.name }} </p> 
+	<p> Color : {{ status.color }} </p> 
+	<p> Description : {{ status.description }} </p> 
+
+	<a href="{% url 'project:update_status' status.id %}">Edit</a>
+	<a href="#">Remove</a>
+	
+</body>
+</html>
