@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Projects List</title>
+</head>
+<body>
+	<h3>Wamadeus Project List {{  user.username }} </h3>
+	<ul>
+	{% for project in projects %}
+		<li> <a href="{% url 'project:show' project.id %}">  {{ project.alias }} </a> </li>
+	{% endfor %}
+			<a href="{% url 'project:create' %}">create project</a>
+	</ul>
+</body>
+</html>

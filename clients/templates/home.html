@@ -11,6 +11,10 @@
 		<p>
 			<a href="{% url 'client:login' %}">  <strong>  Login </strong>  </a>
 		</p>
-	
+		<ul>
+		{%  for project in last_projects%}
+			  <li>  <a href="{% url 'project:show' project.id %}"> {{ project.alias }} </a>   </li> 
+		{%  endfor %}
+		</ul>
 </body>
 </html>

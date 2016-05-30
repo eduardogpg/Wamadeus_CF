@@ -9,5 +9,6 @@
 	<h4> {{ user.username }}  </h4>
 		<a href="{% url 'client:settings' %}">  <strong>  Setting </strong>  </a>
 		<a href="{% url 'client:logout' %}">  <strong>  Logout </strong>  </a>
+		<a href="{% url 'project:index' user.id %}">  <strong>  Projects </strong>  </a>
 </body>
 </html>

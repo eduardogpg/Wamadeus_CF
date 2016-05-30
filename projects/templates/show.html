@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Project </title>
+</head>
+<body>
+	<h3>Wamadeus Show Project</h3>
+	<p> {{ project.name }} </p>
+	<p> {{ project.alias }} </p>
+	<p> {{ project.description }} </p>
+
+	{% if is_admin %}
+		<p> <a href="{% url 'project:edit' project.id %}"> Editar </a> </p>
+	{% endif %}
+</body>
+</html>

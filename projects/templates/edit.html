@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Project</title>
+</head>
+<body>
+	<h3>Wamadeus Edit Project {{  project.name }}</h3>
+	{% if updated %}
+		<p>  project updated </p>
+	{% endif %}
+
+	<form action="" method="post">
+		{% csrf_token %}
+		{{ form_project.as_p }}
+		<input type="submit" value="creat">
+	</form>
+
+</body>
+</html>
