@@ -22,7 +22,7 @@ urlpatterns = [
 	url(r'^dashboard/$', views.dashboard, name="dashboard"),
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('clients.urls')  ),
-    url(r'^task/', include('tasks.urls')  ),
+    url(r'^project/task/', include('tasks.urls')  ),
     url(r'^project/', include('projects.urls')  ),
 ]
 

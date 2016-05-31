@@ -11,6 +11,8 @@
 
 	{% if is_admin %}
 		<p> <a href="{% url 'project:edit' project.id %}"> Editar </a> </p>
+		<br>
+		<p> <a href="{% url 'task:index' project.id %}"> Tareas </a> </p>
 	{% endif %}
 </body>
 </html>

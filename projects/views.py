@@ -72,6 +72,12 @@ def update_status(request, status_id= None):
 	context = {'updated': updated, 'status_form': status_form}
 	return render(request, 'status/edit.html', context )
 
+def show_path(request, path):
+	project = get_object_or_404(Project, path = path)
+	is_admin = is_project_admin(request, project.user_id)
+	context = { 'project': project, 'is_admin': is_admin}
+	return render(request, 'show.html', context)
+
 
 def is_project_admin(request, user_id):
 	if request.user is None or user_id != request.user.id:

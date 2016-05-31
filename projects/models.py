@@ -22,6 +22,12 @@ class Project(models.Model):
 	user = models.ForeignKey(User)
 	create_at = models.DateField( default = datetime.now )
 	dead_line = models.DateField()
+	path = models.CharField(max_length = 50)
 
 	def __str__(self):
 		return self.name
+
+	def save(self, force_insert = False, force_update = False):
+		self.path = self.name.replace(" ", "_").lower()
+		super(Project, self).save(force_insert, force_update)
+
