@@ -11,24 +11,30 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
 from django.shortcuts import get_object_or_404
+
 # Create your views here.
 #Tutorial to register new User
 #http://www.tangowithdjango.com/book/chapters/login.html
 
 def register(request):
-	registered = False
+	message = None
 	form = UserForm(request.POST or None)
 	if request.method == 'POST':
 		if form.is_valid():
 			user = form.save()
 			user.set_password(user.password)
 			user.save()
-			registered = True
+			message = "usuario registrado."
 		else:
+			#no funciona la documentacion
+			#https://docs.djangoproject.com/es/1.9/ref/forms/api/
+			message = "no sirvern tus datos"
+			print "\n\n\n\n\n"
 			print form.errors
-	else:
-		form = UserForm()
-	context = {'form' : form, 'registered' : registered}
+			print form.errors.as_data()
+			print form.errors.as_data().itervalues().next()
+
+	context = {'form' : form, 'message' : message}
 	return render(request, 'register.html', context )
 
 def user_is_not_login(user):
@@ -44,7 +50,7 @@ def login(request):
 				login_django(request, user)
 				return redirect('dashboard')
 			else:
-				message = "El usuar esta desabilitado"
+				message = "El usuario esta deshabilitado"
 		else:
 			message = "El usuario o la password son incorrectos"
 	

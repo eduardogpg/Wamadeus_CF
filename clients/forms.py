@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 #from django.forms import ModelForm
@@ -15,7 +17,12 @@ class Login(forms.Form):
 
 
 class UserForm(forms.ModelForm):
-	password = forms.CharField( widget=forms.PasswordInput())
+	password = forms.CharField( widget=forms.PasswordInput(), 
+			error_messages = {'required': 'Es necesario ingregar un password' } )
+	username = forms.CharField( error_messages = {'required': 'Es necesario ingregar un nombre', 'unique': 'El usuario ya se encuentras registrado',})
+	email = forms.CharField( error_messages = {'required': 'Es necesario una dirección de correo'})
+
+
 	class Meta:
 		model = User
 		fields = ('username', 'email', 'password')
