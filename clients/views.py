@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from models import Client
-from forms import UserForm, LoginForm, ClientForm , UseEditForm
+from forms import UserForm, Login, ClientForm , UseEditForm
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
@@ -17,18 +17,18 @@ from django.shortcuts import get_object_or_404
 
 def register(request):
 	registered = False
+	form = UserForm(request.POST or None)
 	if request.method == 'POST':
-		user_form = UserForm(request.POST)
-		if user_form.is_valid():
-			user = user_form.save()
+		if form.is_valid():
+			user = form.save()
 			user.set_password(user.password)
 			user.save()
 			registered = True
 		else:
-			print user_form.errors
+			print form.errors
 	else:
-		user_form = UserForm()
-	context = {'user_form' : user_form, 'registered' : registered}
+		form = UserForm()
+	context = {'form' : form, 'registered' : registered}
 	return render(request, 'register.html', context )
 
 def user_is_not_login(user):
@@ -38,18 +38,18 @@ def user_is_not_login(user):
 def login(request):
 	message = None
 	if request.method == 'POST':
-		user = authenticate(username = request.POST['username'], password= request.POST['password'])
+		user = authenticate(username = request.POST['username'], password = request.POST['password'])
 		if user is not None:
 			if user.is_active:
 				login_django(request, user)
 				return redirect('dashboard')
 			else:
-				message = "The password id valid, but the account has been disbled"
+				message = "El usuar esta desabilitado"
 		else:
-			message = "The username and password were incorrect"
+			message = "El usuario y la password son incorrectos"
 	
-	login_form = LoginForm()
-	context = { 'login_form' : login_form, 'message' : message }
+	form = Login()
+	context = { 'form' : form, 'message' : message }
 	return render(request, 'login.html',  context ) 
 
 @login_required(login_url='home')

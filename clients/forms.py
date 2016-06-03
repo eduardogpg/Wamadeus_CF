@@ -4,12 +4,42 @@ from django.contrib.auth.forms import UserChangeForm
 from django import forms
 from models import Client
 
+
+class Login(forms.Form):
+
+	username = forms.CharField(max_length = 20,
+		widget=forms.TextInput(attrs={'id': 'username', 'class': 'validate'}))
+
+	password = forms.CharField( max_length = 20,
+		widget=forms.PasswordInput(attrs={'id': 'password', 'class': 'validate'}))			
+
+
 class UserForm(forms.ModelForm):
 	password = forms.CharField( widget=forms.PasswordInput())
-
 	class Meta:
 		model = User
-		fields = ('username', 'password', 'email')
+		fields = ('username', 'email', 'password')
+	
+	def __init__(self, *args, **kwargs):
+		super(UserForm, self).__init__(*args, **kwargs)
+		self.fields['username'].widget.attrs.update({'class' : 'validate'})
+		self.fields['email'].widget.attrs.update({'class' : 'validate'})
+		self.fields['password'].widget.attrs.update({'class' : 'validate'})
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class UseEditForm(UserChangeForm):
 	def __init__(self, *args, **kwargs):
@@ -25,6 +55,5 @@ class ClientForm(forms.ModelForm):
 		model = Client
 		fields = ['job', 'bio']
 
-class LoginForm(forms.Form):
-	username = forms.CharField(label='username', max_length=50)
-	password = forms.CharField(widget=forms.PasswordInput, label="password", max_length=50)
+		
+	
