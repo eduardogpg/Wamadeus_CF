@@ -9,10 +9,17 @@
 	<p> {{ project.alias }} </p>
 	<p> {{ project.description }} </p>
 
+	<h4>Tareas</h4>
+	<ul>
+	{% for task in tasks %}
+		<li> <a href="#">  {{ task.title }} </a>  </li>
+	{% endfor %}
+	</ul>
+	
 	{% if is_admin %}
 		<p> <a href="{% url 'project:edit' project.id %}"> Editar </a> </p>
 		<br>
-		<p> <a href="{% url 'task:index' project.id %}"> Tareas </a> </p>
+		<p> <a href="{% url 'task:create' project.id %}"> Tareas </a> </p>
 	{% endif %}
 </body>
 </html>

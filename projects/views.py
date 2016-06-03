@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .forms import ProjectForm, StatusForm
 from .models import Status, Project
+from tasks.models import Task
 
 @login_required(login_url='home')
 def create(request):
@@ -21,8 +22,11 @@ def create(request):
 
 def show(request, project_id = None):
 	project = get_object_or_404(Project, id= project_id)
+	tasks =  Task.objects.filter( project_id = project_id  )
+
 	is_admin = is_project_admin(request, project.user_id)
-	context = { 'project': project, 'is_admin': is_admin}
+	context = { 'project': project, 'is_admin': is_admin, 'tasks': tasks }
+
 	return render(request, 'show.html', context)
 
 def index(request, user_id):
@@ -74,8 +78,10 @@ def update_status(request, status_id= None):
 
 def show_path(request, path):
 	project = get_object_or_404(Project, path = path)
+	tasks =  Task.objects.filter( project_id = project.id )
+
 	is_admin = is_project_admin(request, project.user_id)
-	context = { 'project': project, 'is_admin': is_admin}
+	context = { 'project': project, 'is_admin': is_admin, 'tasks': tasks }
 	return render(request, 'show.html', context)
 
 
