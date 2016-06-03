@@ -46,7 +46,7 @@ def login(request):
 			else:
 				message = "El usuar esta desabilitado"
 		else:
-			message = "El usuario y la password son incorrectos"
+			message = "El usuario o la password son incorrectos"
 	
 	form = Login()
 	context = { 'form' : form, 'message' : message }

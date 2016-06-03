@@ -2,15 +2,15 @@
 
 {% block title %} Project Login  {% endblock %}
 
+{% block group %}
+  <hgroup>
+    <h3>Login</h3>
+  </hgroup>
+{% endblock %}
+
 {% block content %}
-	
-	<hgroup>
-	  <h3>Login</h3>
-	</hgroup>
-	
 	<form id="login_form_user" method="post" action="" enctype="multipart/form-data">
 		{% csrf_token %}
-		
     {% for field in form %}
       <div class="row">
         <div class="input-field col s12">

@@ -15,8 +15,17 @@
   </head>
   <body>
 
-		 {% block content %}
-     {% endblock %}
+    {% block group %}
+    {% endblock %}
+
+    {% if message %}  
+      <div>
+        <h5 class="center-align">{{ message }}</h5>
+      </div>
+    {% endif %}
+
+		{% block content %}
+    {% endblock %}
 
 	</body>
 </html>
