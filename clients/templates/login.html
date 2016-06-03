@@ -1,18 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login</title>
-</head>
-<body>
-		<h3>Wamadeus Login</h3>
-		{% if message %}
-			<p> <strong>  {{ message }} </strong> </p>
-		{% endif %}
+{% extends 'base.html' %}
 
-		<form id="user_form" method="post" action="" enctype="multipart/form-data">
-				{% csrf_token %}
-				{{ login_form.as_p }}
-			<input type="submit" value="login" id="login_submit" class="submit">
-		</form>
-</body>
-</html>
+{% block title %} Project Login  {% endblock %}
+
+{% block content %}
+	
+	<hgroup>
+	  <h3>Login</h3>
+	</hgroup>
+	
+	<form id="login_form_user" method="post" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="row">
+      <div class="input-field col s12">
+        <input id="username" type="text" class="validate">
+        <label for="username">username</label>
+      </div>
+    </div>
+
+		<div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <button class="btn #9e9e9e grey" type="submit" name="action">Ingresar</button>
+  </form>
+  <footer>
+  	<a href="#"> Olvide mi contraseña  </a>
+		<p> Crea una nueva cuenta <a href="{% url 'client:register' %}"> aqui </a></p>
+	</footer>
+
+{% endblock content %}
