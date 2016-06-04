@@ -8,9 +8,9 @@ def home(request):
 	else:
 		last_projects = Project.objects.all()[:10]
 		context = { 'last_projects': last_projects }
-		return render(request, 'home.html', context)
+		return render(request, 'project/home.html', context)
 
 @login_required(login_url='home')
 def dashboard(request):
 	context = { 'user': request.user}
-	return render(request, 'dashboard.html', context)	
+	return render(request, 'clients/dashboard.html', context)	

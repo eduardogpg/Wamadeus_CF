@@ -1,4 +1,4 @@
-{% extends 'main_base.html' %}
+{% extends 'clients/_main_base.html' %}
 
 {% block title %} Dashboard  {% endblock %}
 
@@ -13,19 +13,14 @@
     		{% endif %}
 
     		<div id="profile_image">
+    			<P> {{  user.image }} </P>
+    			<P> {{  user.username }} </P>
     			<img src='{{  user.image.url }}' >
     		</div>
 
-      	<form id="edit_user_form" method="post" action="" enctype="multipart/form-data">
+      	<form method="post" action="" enctype="multipart/form-data">
 					{% csrf_token %}
-					{% for field in form %}
-						 <div class="row">
-			        <div class="input-field col s12">
-			           {{ field }}
-			          <label class="{% for class in field.label_classes %}{{ class }} {% endfor %}" for="{{ field.name }}">{{ field.label }}</label>
-			        </div>
-			      </div>
-					{% endfor %}
+					{{ form.as_p }}
 					<button class="btn #9e9e9e grey" type="submit" name="action">Actualizar</button>
 				</form>
 

@@ -31,7 +31,7 @@ def register(request):
 		else:
 			message = form.errors.as_data().itervalues().next()[0].message
 	context = {'form' : form, 'message' : message}
-	return render(request, 'register.html', context )
+	return render(request, 'clients/register.html', context )
 
 def user_is_not_login(user):
     return not user.is_authenticated()
@@ -52,7 +52,7 @@ def login(request):
 	
 	form = Login()
 	context = { 'form' : form, 'message' : message }
-	return render(request, 'login.html',  context ) 
+	return render(request, 'clients/login.html',  context ) 
 
 @login_required(login_url='home')
 def general_settings(request):
@@ -71,21 +71,34 @@ def general_settings(request):
 			message = "El formulario contiene errores"
 
 	context = { 'client_form': client_form, 'user_form' : user_form, 'message': message}
-	return render(request, 'settings.html', context)
+	return render(request, 'clients/settings.html', context)
 
 
 @login_required(login_url='home')
 def image_settings(request):
 	message = None
-
-	form = ClientImageForm(request.POST or None, instance = request.user)
+	form = ClientImageForm(request.POST or None, request.FILES or None, instance = request.user)
 	if request.method == 'POST':
 		if form.is_valid():
 			form.save()
-			message = "Imagen actualizada"
+			request.user.image = form.cleaned_data['image'] 
+			request.user.save()
+			message = "Nueva imagen de perfil"
 
 	context = { 'form': form, 'user': request.user ,'message': message}
-	return render(request, 'settings_image.html', context)
+	return render(request, 'clients/settings_image.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required(login_url='home')
 def delete(request):
