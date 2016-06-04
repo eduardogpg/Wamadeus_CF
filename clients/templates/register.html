@@ -23,10 +23,6 @@
     <button class="btn #9e9e9e grey" type="submit" name="action">Crear</button>
   </form>
   
-  {% if form.errors %}
-    {{form.errors.values.0}}
-  {% endif %}
-
   <footer>
     <p> Ya tengo una cuenta <a href="{% url 'client:login' %}"> ingresar </a></p>
   </footer>

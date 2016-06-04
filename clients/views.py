@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from models import Client
-from forms import UserForm, Login, ClientForm , UseEditForm
+from forms import UserForm, Login, ClientForm , UseEditForm, ClientImageForm
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
@@ -21,19 +21,15 @@ def register(request):
 	form = UserForm(request.POST or None)
 	if request.method == 'POST':
 		if form.is_valid():
-			user = form.save()
-			user.set_password(user.password)
+			user = form.save(commit = False)
+			password = user.password
+			user.set_password(password)
 			user.save()
-			message = "usuario registrado."
+			user_authenticated = authenticate(username = user.username, password = password)
+			login_django(request, user_authenticated)
+			return redirect('dashboard')
 		else:
-			#no funciona la documentacion
-			#https://docs.djangoproject.com/es/1.9/ref/forms/api/
-			message = "no sirvern tus datos"
-			print "\n\n\n\n\n"
-			print form.errors
-			print form.errors.as_data()
-			print form.errors.as_data().itervalues().next()
-
+			message = form.errors.as_data().itervalues().next()[0].message
 	context = {'form' : form, 'message' : message}
 	return render(request, 'register.html', context )
 
@@ -59,12 +55,10 @@ def login(request):
 	return render(request, 'login.html',  context ) 
 
 @login_required(login_url='home')
-def settings(request):
-	updated = False
-
+def general_settings(request):
+	message = None
 	client_form = create_form_client( request )
 	user_form = UseEditForm(request.POST or None, instance = request.user)
-
 	if request.method == 'POST':
 		if user_form.is_valid() and client_form.is_valid():
 			client = client_form.save(commit=False)
@@ -72,10 +66,26 @@ def settings(request):
 			client.user = user
 			user.save()
 			client.save()
-			updated = True
+			message = "Perfil actualizado"
+		else:
+			message = "El formulario contiene errores"
 
-	context = { 'client_form': client_form, 'user_form' : user_form, 'updated': updated}
+	context = { 'client_form': client_form, 'user_form' : user_form, 'message': message}
 	return render(request, 'settings.html', context)
+
+
+@login_required(login_url='home')
+def image_settings(request):
+	message = None
+
+	form = ClientImageForm(request.POST or None, instance = request.user)
+	if request.method == 'POST':
+		if form.is_valid():
+			form.save()
+			message = "Imagen actualizada"
+
+	context = { 'form': form, 'user': request.user ,'message': message}
+	return render(request, 'settings_image.html', context)
 
 @login_required(login_url='home')
 def delete(request):
@@ -100,7 +110,8 @@ def create_form_client(request):
 	except:
 		return ClientForm(request.POST or None)	
 
-		
+
+
 
 
 

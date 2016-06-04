@@ -1,0 +1,12 @@
+.tasks {
+	background: #F2F0FA;
+	height: 500px;
+	overflow: scroll;
+	border: 1px solid #ebebeb;
+	box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+	border-radius: 25px;
+}
+
+.username{
+	font-size: 24px;
+}
