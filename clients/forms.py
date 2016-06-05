@@ -64,7 +64,6 @@ class ClientImageForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(ClientImageForm, self).__init__(*args, **kwargs)
-		
 
 		
 

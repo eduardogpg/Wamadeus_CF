@@ -13,7 +13,7 @@
         		<h5 class="center-align">{{ message }}</h5>
       		</div>
     		{% endif %}
-      	<form id="edit_user_form" method="post" action="" enctype="multipart/form-data">
+      	<form id="edit_user_form" method="post" action="" enctype="multipart/form-data" class="form_user">
 					{% csrf_token %}
 					
 					{% for field in user_form %}

@@ -77,27 +77,17 @@ def general_settings(request):
 @login_required(login_url='home')
 def image_settings(request):
 	message = None
-	form = ClientImageForm(request.POST or None, request.FILES or None, instance = request.user)
+	user = get_object_or_404(Client, user_id= request.user.id)
+
+	form = ClientImageForm(request.POST or None, request.FILES or None)
 	if request.method == 'POST':
 		if form.is_valid():
-			form.save()
-			request.user.image = form.cleaned_data['image'] 
-			request.user.save()
-			message = "Nueva imagen de perfil"
+			user.image = form.cleaned_data['image']
+			user.save()
+			message = "Se actualizado la imagen de perfil"
 
-	context = { 'form': form, 'user': request.user ,'message': message}
+	context = { 'form': form, 'user': user ,'message': message}
 	return render(request, 'clients/settings_image.html', context)
-
-
-
-
-
-
-
-
-
-
-
 
 
 @login_required(login_url='home')

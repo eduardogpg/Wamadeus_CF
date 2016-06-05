@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-	<form id="login_form_user" method="post" action="" enctype="multipart/form-data">
+	<form id="login_form_user" method="post" action="" enctype="multipart/form-data" class="form_user">
 		{% csrf_token %}
     {% for field in form %}
       <div class="row">

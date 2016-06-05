@@ -8,7 +8,7 @@ h3 {
 	color: #9e9e9e;
 }
 
-form {
+.form_user {
 	width: 380px;
 	margin: 4em auto;
 	padding: 3em 2em 2em 2em;
@@ -72,4 +72,5 @@ form {
 	color: #888;
 	font-size: 12px;
 }
+
 
