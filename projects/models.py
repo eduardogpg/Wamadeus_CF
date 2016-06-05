@@ -28,6 +28,6 @@ class Project(models.Model):
 		return self.name
 
 	def save(self, force_insert = False, force_update = False):
-		self.path = self.name.replace(" ", "_").lower()
+		self.path = self.alias.replace(" ", "_").lower()
 		super(Project, self).save(force_insert, force_update)
 
