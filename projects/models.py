@@ -13,6 +13,9 @@ class Status(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_short_description(self):
+		return self.description[:20]
+
 class Project(models.Model):
 	name = models.CharField(max_length=50)
 	alias = models.CharField(max_length=10)
@@ -26,6 +29,11 @@ class Project(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def validate_unique(self, *args, **kwargs):
+		super(Project, self).validate_unique(*args, **kwargs)
+		if Project.objects.filter(path = self.path).exists():
+			raise ValidationError({'path':['El path debe se ser unico',]})
 
 	def save(self, force_insert = False, force_update = False):
 		self.path = self.alias.replace(" ", "_").lower()

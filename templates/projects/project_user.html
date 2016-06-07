@@ -1,7 +1,5 @@
 {% extends 'clients/_main_base.html' %}
-
 {% block title %} Dashboard  {% endblock %}
-
 {% block content %}
 
   <div class="all_contariner">
@@ -15,26 +13,46 @@
 
       <div class="row">
         <div class="col s7 push-s5">
-          {% if tasks %}
-            {% for project in projects %}
-              <p> {{  project.title }}</p>
-            {%  endfor %}
-          {% else %}
-            <p> <b> No tienes ningunana tarea </b> </p>
-          {% endif %}
-        </div>
-
-        <div class="col s5 pull-s7">
           {% if projects %}
-            {% for project in projects %}
-              
-              <p> {{ project.name }} </p>
-              <p> {{ project.dead_line }} </p>
-              <p> {{ project.status.color }} </p>
+            <ul class="collection">
+              {% for project in projects %}
+               <li class="collection-item avatar">
+                  <img src="images/yuna.jpg" alt="" class="circle">
+                  <span class="title"> {{ project.name }} </span>
+                  <p>{{ project.status }} <br>
+                    {{ project.get_short_description }}
+                  </p>
+                  
+                  <div class="secondary-content">
+                    <div class="circle_status" style="background-color:{{ project.status.color }}" ></div>
+                  </div>
+                </li>
+              {% endfor %}
+            <ul>
+          {% endif %}
+      </div>
 
-            {%  endfor %}
+        <div class="col s5 pull-s7 cantainer_card ">
+         {% if projects %}
+            <ul class="collection">
+              {% for project in projects %}
+               <li class="collection-item avatar">
+                  <a href="{% url 'project:show' project.path %}">
+                    <img src="images/yuna.jpg" alt="" class="circle">
+                    <span class="title"> {{ project.name }} </span>
+                    <p>{{ project.status }} <br>
+                      {{ project.get_short_description }}
+                    </p>
+                    
+                    <div class="secondary-content">
+                      <div class="circle_status" style="background-color:{{ project.status.color }}" ></div>
+                    </div>
+                  </a>
+                </li>
+              {% endfor %}
+            <ul>
           {% else %}
-            <p> <b> No tienes ningun proyecto </b> </p>
+            <p> No tienes ningun proyecto aun</p>
           {% endif %}
 
         </div>

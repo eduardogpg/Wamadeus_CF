@@ -82,3 +82,21 @@ background-color: #fff ;
 color: #333 ;
 }
 
+.cantainer_card{
+  height: 500px;
+  overflow: scroll;
+}
+.cantainer_task_collection{
+  height: 400px;
+  overflow: scroll;
+}
+
+.circle_status {
+  position: relative;
+  background-color: #09f;
+  margin: 10px auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 200px;
+}
+
