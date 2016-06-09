@@ -1,6 +1,7 @@
 from django import forms
 from .models import Status, Project
 
+
 class ProjectForm(forms.ModelForm):
 	
 	#dead_line = forms.DateField( widget = forms.DateInput(format = '%d/%m/%Y'), input_formats=('%d/%m/%Y',))

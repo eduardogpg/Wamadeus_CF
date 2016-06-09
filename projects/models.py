@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -30,12 +31,18 @@ class Project(models.Model):
 	def __str__(self):
 		return self.name
 
-	def validate_unique(self, *args, **kwargs):
-		super(Project, self).validate_unique(*args, **kwargs)
+	#El que deberia de funcionar
+	def clean(self): 
 		if Project.objects.filter(path = self.path).exists():
-			raise ValidationError({'path':['El path debe se ser unico',]})
+			raise ValidationError({'path':['El path debe de ser unico',]})
+
+	def validate_unique(self, exclude=None):
+		#https://docs.djangoproject.com/es/1.9/ref/models/instances/
+		if Project.objects.filter(alias = self.alias).exists():
+			raise ValidationError('El alias ya se encuentra en uso')
 
 	def save(self, force_insert = False, force_update = False):
 		self.path = self.alias.replace(" ", "_").lower()
+		self.validate_unique()
 		super(Project, self).save(force_insert, force_update)
 
