@@ -4,6 +4,21 @@
 
 {% block content %}
 
+<div>
+  <form id="create_task" method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form_task %}
+      <div class="row">
+        <div class="input-field col s12">
+           {{ field }}
+          <label class="{% for class in field.label_classes %}{{ class }} {% endfor %}" for="{{ field.name }}">{{ field.label }}</label>
+        </div>
+      </div>
+    {% endfor %}
+    <button class="btn #9e9e9e grey" type="submit" name="action">Crear</button>
+  </form>
+</div>
+
 <div class="row">
 
   <div class="col s3">
@@ -24,23 +39,18 @@
       </form>
   </div>
 
-  <div class="col s9 cantainer_task_collection">
-
+  <div class="col s9 container_task_collection">
 			{% if is_admin %}
       	<button class="btn #9e9e9e grey right-align" type="submit" name="action" id="new_task">Crear nueva tarea
 		  	</button>
       {% endif %}
-
-     <div class="collection #9e9e9e grey">
-        <a href="#!" class="collection-item ">Tarea 1</a>
-        <a href="#!" class="collection-item active">Tarea 2</a>
-        <a href="#!" class="collection-item">Tarea 3</a>
-        <a href="#!" class="collection-item">Tarea 4</a>
+     <div class="collection #9e9e9e grey" id="tasks">
+      {% for task in tasks %}
+        <a href="#" class="collection-item ">{{  task.title }}</a>
+      {% endfor %}
       </div>
   </div>
 </div>
-
-
 
 
 {% endblock content %}

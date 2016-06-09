@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .forms import ProjectForm, StatusForm
 from .models import Status, Project
+from tasks.forms import TaskForm
 import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -38,7 +39,8 @@ def show(request, path = None):
 	tasks =  Task.objects.filter( project_id = project.id  )
 	is_admin = True
 	form = ProjectForm(instance = project) 
-	context = { 'project': project, 'is_admin': is_admin, 'tasks': tasks,'form': form }
+	form_task = TaskForm()
+	context = { 'project': project, 'is_admin': is_admin, 'tasks': tasks,'form': form, 'form_task': form_task }
 	return render(request, 'projects/show.html', context)
 
 def update(request):
@@ -53,7 +55,6 @@ def update(request):
 	else:
 		message = form.errors.as_data().itervalues().next()[0].message
 		response_data['result'] = message
-	
 	return HttpResponse(json.dumps(response_data), content_type = "application/json")
 
 
