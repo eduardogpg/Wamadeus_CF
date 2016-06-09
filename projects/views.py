@@ -7,8 +7,10 @@ from tasks.forms import TaskForm
 import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-
 from tasks.models import Task
+from contributors.models import Collaborator
+
+
 
 def project_user(request, user_name):
 	user = get_object_or_404(User, username = user_name)
@@ -27,6 +29,7 @@ def new(request, user_name):
 			project = form.save(commit = False)
 			project.user = request.user
 			project.save()
+			project.collaborator_set.create( user_id = request.user.id, is_admin = True )
 			return redirect('project:show', path = project.path)
 		else:
 			message = form.errors.as_data().itervalues().next()[0].message
@@ -37,10 +40,11 @@ def new(request, user_name):
 def show(request, path = None):
 	project = get_object_or_404(Project, path= path)
 	tasks =  Task.objects.filter( project_id = project.id  )
+	contributors = Collaborator.objects.filter( project_id = project.id)
 	is_admin = True
 	form = ProjectForm(instance = project) 
 	form_task = TaskForm()
-	context = { 'project': project, 'is_admin': is_admin, 'tasks': tasks,'form': form, 'form_task': form_task }
+	context = { 'project': project, 'is_admin': is_admin, 'tasks': tasks,'form': form, 'form_task': form_task, 'contributors': contributors }
 	return render(request, 'projects/show.html', context)
 
 def update(request):

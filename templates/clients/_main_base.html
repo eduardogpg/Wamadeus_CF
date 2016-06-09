@@ -39,7 +39,7 @@
           <li><a href="{% url 'client:logout' %}">Log out</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
-          <li><a href="#">Proyectos</a></li>
+          <li><a href="{% url 'project:project_user' request.user.username %}">Proyectos</a></li>
           <li><a href="#">Tareas</a></li>
           <li><a href="{% url 'client:general_settings' %}">Configuración</a></li>
           <li><a href="{% url 'client:logout' %}">Log out</a></li>

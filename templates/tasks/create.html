@@ -1,9 +1,9 @@
 {% extends 'clients/_main_base.html' %}
 
-{% block title %} Create new Project  {% endblock %}
+{% block title %} Create new task{% endblock %}
 
   <hgroup>
-    <h3>Nuevo Proyecto</h3>
+    <h3>Nueva tarea</h3>
   </hgroup>
 
 {% block content %}
@@ -11,7 +11,7 @@
 <div class="valign-wrapper">
   <div class="row">
     <div class="col m12">
-      <form id="login_form_user" method="post" action="" enctype="multipart/form-data">
+      <form id="form_create_task" method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
           <div class="row">

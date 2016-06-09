@@ -15,7 +15,6 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 #Tutorial to register new User
 #http://www.tangowithdjango.com/book/chapters/login.html
-
 def register(request):
 	message = None
 	form = UserForm(request.POST or None)
@@ -25,6 +24,7 @@ def register(request):
 			password = user.password
 			user.set_password(password)
 			user.save()
+			Client(user = user).save()
 			user_authenticated = authenticate(username = user.username, password = password)
 			login_django(request, user_authenticated)
 			return redirect('dashboard')
@@ -103,6 +103,11 @@ def down(request):
 	user.save()
 	return redirect('client:logout')
 
+def show(request, username = None):
+	user = get_object_or_404(User, username = username)
+	context = {'user' : user}
+	return render(request, 'clients/show.html', context)
+	
 def logout(request):
 	logout_django(request)
 	return redirect('home')

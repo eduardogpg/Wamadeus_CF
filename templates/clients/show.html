@@ -1,0 +1,15 @@
+{% extends 'clients/_main_base.html' %}
+
+{% block title %} Dashboard  {% endblock %}
+
+<!-- links para formularios -->
+{% block content %}
+	
+	<div class="valign-wrapper">
+  	<h4> {{ user.username }} </h4>
+  	<p>
+  		{{ user.client.bio }}
+  	</p>
+	</div>
+
+{% endblock content %}
