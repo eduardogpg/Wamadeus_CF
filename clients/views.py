@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from models import Client
-from forms import UserForm, Login, ClientForm , UseEditForm, ClientImageForm
+from forms import UserForm, Login, ClientForm , UseEditForm, ClientImageForm, ChangePassword
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 #Tutorial to register new User
@@ -77,17 +79,41 @@ def general_settings(request):
 @login_required(login_url='home')
 def image_settings(request):
 	message = None
-	user = get_object_or_404(Client, user_id= request.user.id)
+	user = get_object_or_404(Client, user_id = request.user.id)
 
 	form = ClientImageForm(request.POST or None, request.FILES or None)
 	if request.method == 'POST':
 		if form.is_valid():
+			user.image.delete()#elimnamos la anterior imagen
 			user.image = form.cleaned_data['image']
 			user.save()
 			message = "Se actualizado la imagen de perfil"
+		else:
+			message = "El archivo seleccionado no es una imagen"
 
 	context = { 'form': form, 'user': user ,'message': message}
 	return render(request, 'clients/settings_image.html', context)
+
+
+@login_required(login_url='home')
+def change_password(request, username = None):
+	form = ChangePassword(request.POST or None)
+	message = None
+	if request.method == 'POST':
+		if form.is_valid():
+			if authenticate(username = request.user.username, password = form.cleaned_data['current_password']):
+				request.user.set_password(form.cleaned_data['new_password'])
+				request.user.save()
+				#https://docs.djangoproject.com/en/1.7/topics/auth/default/#session-invalidation-on-password-change
+				update_session_auth_hash(request, request.user)
+				message = "Password actualizada"
+			else:
+				message = "No es la password actual"
+		else:
+			message = form.errors.as_data().itervalues().next()[0].message
+
+	context = {'form' : form, 'message' : message}
+	return render(request, 'clients/settings_password.html', context)
 
 
 @login_required(login_url='home')

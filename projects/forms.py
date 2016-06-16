@@ -18,6 +18,7 @@ class ProjectForm(forms.ModelForm):
 		self.fields['description'].widget.attrs.update({'class' : 'materialize-textarea'})
 		self.fields['status'].widget.attrs.update({'class': ''})
 		self.fields['dead_line'].widget.attrs.update({'class' : 'datepicker'})
+		self.fields['image'].widget.attrs.update({'class' : 'image'})
 
 	def clean_alias(self):
 		alias = self.cleaned_data['alias']

@@ -61,8 +61,10 @@
           <a href="{% url 'client:show' collaborate.user.username %}" class="collection-item ">{{  collaborate.user.username }}</a>
         {% endfor %}
       </div>
+      <a href="{% url 'contributor:search'  project.path %}">
         <button class="btn #9e9e9e grey right-align" type="submit" name="action" id="new_task">Nuevo Colaborador
         </button>
+      </a>
 
   </div>
 </div>

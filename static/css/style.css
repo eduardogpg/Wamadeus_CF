@@ -17,6 +17,16 @@ h3 {
 	box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
 }
 
+.class_container{
+  width: 380px;
+  margin: 4em auto;
+  padding: 3em 2em 2em 2em;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+}
+
+
  .input-field label {
    color: #ACACAC;
  }
@@ -32,6 +42,10 @@ h3 {
 .input-field input[type=email]:focus + label {
   color: #ACACAC;
 }
+
+ .input-field input[type=textarea]:focus + label  {
+    color: #ACACAC;
+ }
 
 
 .input-field input[type=text]:focus {
@@ -49,6 +63,9 @@ h3 {
    box-shadow: 0 1px 0 0 #ACACAC;
  }
 
+
+
+
 .input-field input[type=text].valid {
    border-bottom: 1px solid #858585;
    box-shadow: 0 1px 0 0 #858585;
@@ -63,6 +80,7 @@ h3 {
    border-bottom: 1px solid #858585;
    box-shadow: 0 1px 0 0 #858585;
  }
+
 
  footer { 
  	text-align: center; 
@@ -132,4 +150,51 @@ z-index:200;
   margin:100px 30px 10px 0;
 }
 
+.my_padding{
+  margin: 4em auto;
+  padding: 3em 2em 2em 2em;
+}
 
+.image_profile
+{
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  -webkit-border-radius: 150px;
+  -moz-border-radius: 150px;
+  background: url(http://link-to-your/image.jpg) no-repeat;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+.border_grey{
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+}
+
+.container_image{
+    width: 100px;
+    height: 100px;
+}
+.img_porfolio{
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.image_portafolio{
+  max-height: 150px;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+.menos_pading{
+  margin-top: -80px;
+}

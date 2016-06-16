@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^user/', include('clients.urls')  ),
     url(r'^project/task/', include('tasks.urls')  ),
     url(r'^project/', include('projects.urls')  ),
+    url(r'^project/(?P<path>\w+)/contributor/', include('contributors.urls')  ),
 ]
 
 if settings.DEBUG:

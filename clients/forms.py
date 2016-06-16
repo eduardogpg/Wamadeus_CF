@@ -15,6 +15,27 @@ class Login(forms.Form):
 	password = forms.CharField( max_length = 20,
 		widget=forms.PasswordInput(attrs={'id': 'password', 'class': 'validate'}))			
 
+class ChangePassword(forms.Form):
+	current_password = forms.CharField( max_length = 20,
+		error_messages = {'required': 'Es necesario ingregar un password' },
+		widget=forms.PasswordInput(attrs={'id': 'new_password', 'class': 'validate'}))		
+
+	new_password = forms.CharField( max_length = 20,
+		error_messages = {'required': 'Es necesario ingresar una nueva password' },
+		widget=forms.PasswordInput(attrs={'id': 'new_password', 'class': 'validate'}))		
+
+	repeat_password = forms.CharField( max_length = 20,
+		error_messages = {'required': 'Es necesario repetir la nueva password' },
+		widget=forms.PasswordInput(attrs={'id': 'repeat_password', 'class': 'validate'}))		
+	
+	def clean_repeat_password(self):
+		password1 = self.cleaned_data.get('new_password')	
+		password2 = self.cleaned_data.get('repeat_password')
+		
+		if password1 != password2:
+			raise forms.ValidationError("La nueva password no coincide")
+		return password2
+
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField( widget=forms.PasswordInput(), 
